@@ -26,11 +26,15 @@ jobs:
       - name: Build extension
         run: npm run build # Ensure this script exists in your package.json
 
+      - name: Get version
+        id: version
+        run: echo "version=$(jq -r .version dist/manifest.json)" >> $GITHUB_OUTPUT
+
       - name: Zip the build
-        run: zip -r extension.zip dist/* # 'dist' is the common output folder; change if yours is different
+        run: zip -r extension-v${{ steps.version.outputs.version }}.zip dist/*
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: chrome-extension-zip
-          path: extension.zip
+          name: chrome-extension-v${{ steps.version.outputs.version }}
+          path: extension-v${{ steps.version.outputs.version }}.zip
