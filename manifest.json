@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Adds a 'Log to QRZ' button next to each POTA respot button, logging the contact to your QRZ.com logbook.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "host_permissions": [
     "https://pota.app/*",
