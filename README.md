@@ -8,11 +8,10 @@ A Chrome extension that enhances **pota.app** by adding a **"Log QSO"** button n
 
 ## Features
 
-- 🔴 Injects a **"Log QSO"** button next to each Respot button on `pota.app`
 - 📋 Pre-fills callsign, frequency, band, mode, park reference, and UTC date/time from the spot
 - ✏️ Editable modal lets you review and adjust before submitting
 - 🔗 Submits a proper **ADIF-formatted** QSO to the QRZ Logbook API
-- ⚙️ Settings popup stores your callsign, API key, and RST defaults
+- ⚙️ Settings popup stores your callsign and API key
 - ♻️ Works dynamically as new spots load (SPA-aware via MutationObserver)
 
 ---
