@@ -108,3 +108,7 @@ pota-qrz-extension/
 ## License
 
 MIT — Use freely. Not affiliated with POTA or QRZ.com.
+
+---
+
+> 100% Vibe Coded.
