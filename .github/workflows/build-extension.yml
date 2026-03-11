@@ -28,7 +28,14 @@ jobs:
 
       - name: Get version
         id: version
-        run: echo "version=$(jq -r .version dist/manifest.json)" >> $GITHUB_OUTPUT
+        run: |
+          BASE=$(jq -r .version dist/manifest.json)
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "version=${BASE}" >> $GITHUB_OUTPUT
+          else
+            SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-6)
+            echo "version=${BASE}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Zip the build
         run: zip -r extension-v${{ steps.version.outputs.version }}.zip dist/*
