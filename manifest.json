@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "K4RGB - POTA \u2192 QRZ Logger",
+  "version": "1.0.0",
+  "description": "Adds a 'Log to QRZ' button next to each POTA respot button, logging the contact to your QRZ.com logbook.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://pota.app/*",
+    "https://api.pota.app/*",
+    "https://logbook.qrz.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://pota.app/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
