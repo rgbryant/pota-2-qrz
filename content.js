@@ -455,7 +455,7 @@
 
   function respotOnPota({ activator, spotter, freqMHz, reference, mode }) {
     const token = getPotaToken();
-    if (!token) { showToast('QRZ logged ✓ — POTA respot skipped (not logged in to pota.app)', 'warn'); return; }
+    if (!token) { showToast('QRZ logged ✓ — POTA respot skipped (not logged in to pota.app)', 'warn', 7500); return; }
     const frequency = String(Math.round(parseFloat(freqMHz) * 1000));
     const comments  = 'Logged via POTA→QRZ Logger';
     chrome.runtime.sendMessage(
@@ -502,12 +502,12 @@
   }
 
   // ─── Toast ────────────────────────────────────────────────────────────────────
-  function showToast(message, type = 'info') {
+  function showToast(message, type = 'info', duration = 4500) {
     document.querySelector('.pqrz-toast')?.remove();
     const t = document.createElement('div');
     t.className = `pqrz-toast pqrz-toast--${type}`;
     t.textContent = message;
     document.body.appendChild(t);
-    setTimeout(() => t.remove(), 4500);
+    setTimeout(() => t.remove(), duration);
   }
 })();
