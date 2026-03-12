@@ -94,6 +94,7 @@
     document.getElementById('pqrz-close-btn').addEventListener('click', () => {
       panelOpen = false;
       panel.classList.remove('pqrz-panel--open');
+      clearFilter();
     });
     document.getElementById('pqrz-refresh-btn').addEventListener('click', () => fetchAndRender(true));
     document.getElementById('pqrz-filter').addEventListener('input', (e) => {
@@ -108,7 +109,16 @@
     if (panelOpen) {
       document.getElementById('pqrz-launcher').blur();
       setTimeout(() => document.getElementById('pqrz-filter')?.focus(), 250);
+    } else {
+      clearFilter();
     }
+  }
+
+  function clearFilter() {
+    filterText = '';
+    const filterEl = document.getElementById('pqrz-filter');
+    if (filterEl) filterEl.value = '';
+    renderSpotsList();
   }
 
   // ─── Fetch spots from POTA API ────────────────────────────────────────────────
