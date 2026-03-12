@@ -422,6 +422,8 @@
           statusEl.innerHTML = `Logged! QRZ log ID: <strong>${logid}</strong>`;
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--success';
           submitBtn.textContent = '\u2713 Done';
+          respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
+                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode, comments: qso.rst_sent });
           setTimeout(close, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
@@ -436,6 +438,21 @@
         submitBtn.textContent = 'Retry';
       }
     });
+  }
+
+  // ─── POTA Respot ─────────────────────────────────────────────────────────────
+  function respotOnPota({ activator, spotter, freqMHz, reference, mode, comments }) {
+    const frequency = String(Math.round(parseFloat(freqMHz) * 1000));
+    chrome.runtime.sendMessage(
+      { type: 'POTA_RESPOT', payload: { activator, spotter, frequency, reference, mode, comments } },
+      (response) => {
+        if (response?.ok) {
+          showToast('Respotted on POTA ✓', 'info');
+        } else {
+          showToast('POTA respot failed: ' + (response?.error || 'unknown error'), 'warn');
+        }
+      }
+    );
   }
 
   // ─── QRZ API ──────────────────────────────────────────────────────────────────
@@ -470,12 +487,12 @@
   }
 
   // ─── Toast ────────────────────────────────────────────────────────────────────
-  function showToast(message, type = 'info') {
+  function showToast(message, type = 'info', duration = 4500) {
     document.querySelector('.pqrz-toast')?.remove();
     const t = document.createElement('div');
     t.className = `pqrz-toast pqrz-toast--${type}`;
     t.textContent = message;
     document.body.appendChild(t);
-    setTimeout(() => t.remove(), 4500);
+    setTimeout(() => t.remove(), duration);
   }
 })();
