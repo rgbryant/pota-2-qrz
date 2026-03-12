@@ -39,10 +39,6 @@ The extension follows the standard MV3 pattern with three execution contexts tha
 
 ADIF fields are built inline in `content.js:logToQRZ()` using the format `<TAG:length>value`. Fields submitted: `CALL`, `STATION_CALLSIGN`, `BAND`, `MODE`, `QSO_DATE`, `TIME_ON`, `FREQ`, `RST_SENT`, `RST_RCVD`, `COMMENT`, `QTH`, `STATE`, `GRIDSQUARE`.
 
-## Code Rules
-
-- No file may exceed 350 lines. If a change would push a file over this limit, split it first.
-
 ## DOM Note
 
 The extension deliberately avoids injecting into pota.app's reactive Vue DOM. All UI is appended directly to `document.body` using prefixed IDs/classes (`pqrz-*`) to avoid collisions.
