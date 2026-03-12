@@ -1,4 +1,7 @@
-100% Vibe Coded.  This will be in the Chrome Extension store when it gets approved.  Until then you can download it here.
+100% Vibe Coded.  I have no clue how this actually works but I had fun talking to Claude.
+
+## Availible to download from the Chrome Store
+https://chromewebstore.google.com/detail/llefhklgfncblnnaoamamdmajcbbipin?utm_source=item-share-cb
 
 # POTA → QRZ Logger — Chrome Extension
 
