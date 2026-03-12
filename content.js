@@ -422,6 +422,8 @@
           statusEl.innerHTML = `Logged! QRZ log ID: <strong>${logid}</strong>`;
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--success';
           submitBtn.textContent = '\u2713 Done';
+          respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
+                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode });
           setTimeout(close, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
@@ -436,6 +438,36 @@
         submitBtn.textContent = 'Retry';
       }
     });
+  }
+
+  // ─── POTA Respot ─────────────────────────────────────────────────────────────
+  // Extracts the Cognito access token from pota.app's localStorage so we can
+  // respot the activator on POTA after logging to QRZ.
+  function getPotaToken() {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.includes('CognitoIdentityServiceProvider') && key.endsWith('.accessToken')) {
+        return localStorage.getItem(key);
+      }
+    }
+    return null;
+  }
+
+  function respotOnPota({ activator, spotter, freqMHz, reference, mode }) {
+    const token = getPotaToken();
+    if (!token) { showToast('QRZ logged ✓ — POTA respot skipped (not logged in to pota.app)', 'warn'); return; }
+    const frequency = String(Math.round(parseFloat(freqMHz) * 1000));
+    const comments  = 'Logged via POTA→QRZ Logger';
+    chrome.runtime.sendMessage(
+      { type: 'POTA_RESPOT', payload: { token, activator, spotter, frequency, reference, mode, comments } },
+      (response) => {
+        if (response?.ok) {
+          showToast('Respotted on POTA ✓', 'info');
+        } else {
+          showToast('POTA respot failed: ' + (response?.error || 'unknown error'), 'warn');
+        }
+      }
+    );
   }
 
   // ─── QRZ API ──────────────────────────────────────────────────────────────────
