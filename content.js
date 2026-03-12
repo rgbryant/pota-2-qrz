@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="pqrz-search-wrap">
-        <input id="pqrz-filter" type="text" placeholder="Filter by call, park, mode&#x2026;" autocomplete="off" spellcheck="false" />
+        <input id="pqrz-filter" type="text" placeholder="Filter by call, park, mode, freq&#x2026;" autocomplete="off" spellcheck="false" />
       </div>
       <div id="pqrz-spots-list">
         <div class="pqrz-loading">
@@ -140,7 +140,9 @@
 
     const filtered = spots.filter(s => {
       if (!filterText) return true;
-      return [s.activator, s.reference, s.mode, s.name, s.locationDesc]
+      const freqKHz = String(s.frequency || '');
+      const freqMHz = s.frequency ? (parseFloat(s.frequency) / 1000).toFixed(4) : '';
+      return [s.activator, s.reference, s.mode, s.name, s.locationDesc, freqKHz, freqMHz]
         .some(v => (v || '').toLowerCase().includes(filterText));
     });
 
