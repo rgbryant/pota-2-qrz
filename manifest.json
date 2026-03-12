@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "K4RGB - POTA \u2192 QRZ Logger",
   "version": "1.0.0",
-  "description": "Adds a 'Log to QRZ' button next to each POTA respot button, logging the contact to your QRZ.com logbook.",
+  "description": "Adds a 'Log QSO' button to pota.app spots. One click logs the contact to your QRZ.com logbook and respots the activator on POTA.",
   "permissions": [
     "storage"
   ],
