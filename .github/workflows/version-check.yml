@@ -1,0 +1,35 @@
+name: Version Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version on main
+        id: main_version
+        run: |
+          echo "version=$(git show origin/main:package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+
+      - name: Get version on PR branch
+        id: pr_version
+        run: |
+          echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+
+      - name: Fail if version not incremented
+        run: |
+          MAIN="${{ steps.main_version.outputs.version }}"
+          PR="${{ steps.pr_version.outputs.version }}"
+          echo "main: $MAIN  →  PR: $PR"
+          if [ "$PR" = "$MAIN" ]; then
+            echo "❌ Version in package.json ($PR) must be incremented before merging to main."
+            exit 1
+          fi
+          echo "✅ Version incremented: $MAIN → $PR"
