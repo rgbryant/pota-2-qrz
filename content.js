@@ -423,7 +423,7 @@
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--success';
           submitBtn.textContent = '\u2713 Done';
           respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
-                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode });
+                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode, comments: qso.rst_sent });
           setTimeout(close, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
@@ -441,9 +441,8 @@
   }
 
   // ─── POTA Respot ─────────────────────────────────────────────────────────────
-  function respotOnPota({ activator, spotter, freqMHz, reference, mode }) {
+  function respotOnPota({ activator, spotter, freqMHz, reference, mode, comments }) {
     const frequency = String(Math.round(parseFloat(freqMHz) * 1000));
-    const comments  = 'Logged via POTA→QRZ Logger';
     chrome.runtime.sendMessage(
       { type: 'POTA_RESPOT', payload: { activator, spotter, frequency, reference, mode, comments } },
       (response) => {
