@@ -30,8 +30,7 @@ A Chrome extension that enhances **pota.app** by adding a **"Log QSO"** button n
 
 1. Click the extension icon (📡) in Chrome's toolbar
 2. Enter your **callsign** and **QRZ Logbook API Key**
-3. Set your default RST values and preferred mode
-4. Click **Save Settings**
+3. Click **Save Settings**
 
 ### Getting your QRZ API Key
 
@@ -50,7 +49,7 @@ A Chrome extension that enhances **pota.app** by adding a **"Log QSO"** button n
 2. A red **"Log QSO"** button appears next to each Respot button
 3. Click it → a modal opens pre-filled with spot data
 4. Review / edit the QSO fields
-5. Click **"Log to QRZ"** → the QSO is submitted to your QRZ logbook via ADIF POST
+5. Click **"Log to QRZ and Respot"** → the QSO is logged to your QRZ logbook and respotted on POTA; the page reloads after 2.5 seconds
 
 ### ADIF Fields Submitted
 
@@ -63,18 +62,20 @@ A Chrome extension that enhances **pota.app** by adding a **"Log QSO"** button n
 | `QSO_DATE` | Current UTC date |
 | `TIME_ON` | Current UTC time |
 | `FREQ` | Frequency in MHz from spot |
-| `RST_SENT` | From settings (default 59) |
-| `RST_RCVD` | From settings (default 59) |
-| `COMMENT` | Auto-filled with POTA park ref (e.g., `POTA US-1234`) |
+| `RST_SENT` | Entered in modal (field is focused on open) |
+| `RST_RCVD` | Entered in modal |
+| `COMMENT` | QRZ Logbook Comment field in modal |
 
 ---
 
 ## Limitations & Notes
 
-- **Time accuracy**: QSO time is set to when you click "Log QSO". If you make the contact before clicking, edit the time in the modal.
-- **RST**: POTA contacts are typically logged as 59/59. Edit in the modal for actual signal reports.
-- **Mode detection**: The extension parses the mode from the spot text. If not found, it uses your configured default.
+- **Time accuracy**: The UTC time field updates live while the modal is open. If you made the contact before opening the modal, edit the time before submitting.
+- **RST**: RST Sent is focused automatically when the modal opens. Both RST fields must be filled before submitting.
+- **Mode**: Mode is pre-filled from the spot. All fields in the modal are editable before submitting.
 - **QRZ subscription**: The Logbook API requires an active QRZ XML subscription. Free accounts cannot use the API.
+- **Respot**: A POTA respot is submitted automatically on every successful log. The optional "POTA Respot Comment" field in the modal is included with the respot.
+- **Page reload**: The page reloads 2.5 seconds after a successful log+respot to refresh the spot list.
 - **pota.app DOM**: If pota.app updates their HTML structure, button injection selectors may need updating.
 
 ---
@@ -108,7 +109,3 @@ pota-qrz-extension/
 ## License
 
 MIT — Use freely. Not affiliated with POTA or QRZ.com.
-
----
-
-> 100% Vibe Coded.
