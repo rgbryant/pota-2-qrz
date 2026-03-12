@@ -338,6 +338,7 @@
       </div>`;
 
     document.body.appendChild(overlay);
+    setTimeout(() => overlay.querySelector('#pqrz-f-rsts')?.focus(), 50);
     // Live UTC time ticker — updates the time field every second while running
     let timeTicking = true;
     let timeTickInterval = setInterval(() => {
@@ -428,7 +429,7 @@
           respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
                          freqMHz: qso.freq, reference: spotData.park, mode: qso.mode,
                          comments: overlay.querySelector('#pqrz-f-pota-comment').value.trim() });
-          setTimeout(close, 2500);
+          setTimeout(() => { close(); location.reload(); }, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--error';
