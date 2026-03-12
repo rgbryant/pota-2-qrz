@@ -1,5 +1,7 @@
 100% Vibe Coded.  This will be in the Chrome Extension store when it gets approved.  Until then you can download it here.
 
+foo-bar
+
 # POTA → QRZ Logger — Chrome Extension
 
 A Chrome extension that enhances **pota.app** by adding a **"Log QSO"** button next to every Respot button. One click opens a pre-filled QSO form; confirm it to instantly log the contact to your **QRZ.com Logbook** via the QRZ Logbook REST API.
