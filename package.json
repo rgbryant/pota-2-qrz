@@ -1,6 +1,7 @@
 {
   "name": "pota-2-qrz",
   "version": "1.0.0",
+  "description": "Chrome extension that adds a Log QSO panel to pota.app, logging contacts to QRZ.com and respotting on POTA",
   "private": true,
   "type": "module",
   "scripts": {
