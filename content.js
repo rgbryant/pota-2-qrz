@@ -303,7 +303,7 @@
             </div>
             <div class="pqrz-form-field"><label>Mode <span class="req">*</span></label>
               <select id="pqrz-f-mode">${modes.map(m=>`<option value="${m}"${m===spotData.mode?' selected':''}>${m}</option>`).join('')}</select></div>
-            <div class="pqrz-form-field pqrz-form-field--full"><label>Comment</label>
+            <div class="pqrz-form-field pqrz-form-field--full"><label>QRZ Logbook Comment</label>
               <input id="pqrz-f-comment" type="text"
                 value="POTA hunting"
                 placeholder="POTA hunting" maxlength="120"/></div>
@@ -320,6 +320,9 @@
               <input id="pqrz-f-grid" type="text"
                 value="${esc(spotData.grid || '')}"
                 placeholder="" maxlength="8"/></div>
+            <div class="pqrz-form-field pqrz-form-field--full"><label>POTA Respot Comment</label>
+              <input id="pqrz-f-pota-comment" type="text"
+                value="" placeholder="e.g. 59" maxlength="120"/></div>
           </div>
           <div class="pqrz-dialog-status" id="pqrz-modal-status" aria-live="polite"></div>
         </div>
@@ -329,7 +332,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            Log to QRZ
+            Log to QRZ and Respot
           </button>
         </footer>
       </div>`;
@@ -423,7 +426,8 @@
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--success';
           submitBtn.textContent = '\u2713 Done';
           respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
-                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode, comments: qso.rst_sent });
+                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode,
+                         comments: overlay.querySelector('#pqrz-f-pota-comment').value.trim() });
           setTimeout(close, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
