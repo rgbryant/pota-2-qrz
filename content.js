@@ -303,7 +303,7 @@
             </div>
             <div class="pqrz-form-field"><label>Mode <span class="req">*</span></label>
               <select id="pqrz-f-mode">${modes.map(m=>`<option value="${m}"${m===spotData.mode?' selected':''}>${m}</option>`).join('')}</select></div>
-            <div class="pqrz-form-field pqrz-form-field--full"><label>Comment</label>
+            <div class="pqrz-form-field pqrz-form-field--full"><label>QRZ Logbook Comment</label>
               <input id="pqrz-f-comment" type="text"
                 value="POTA hunting"
                 placeholder="POTA hunting" maxlength="120"/></div>
