@@ -104,7 +104,13 @@
 
   function togglePanel() {
     panelOpen = !panelOpen;
-    document.getElementById('pqrz-panel').classList.toggle('pqrz-panel--open', panelOpen);
+    const panel = document.getElementById('pqrz-panel');
+    panel.classList.toggle('pqrz-panel--open', panelOpen);
+    if (panelOpen) {
+      panel.addEventListener('transitionend', () => {
+        document.getElementById('pqrz-filter')?.focus();
+      }, { once: true });
+    }
   }
 
   // ─── Fetch spots from POTA API ────────────────────────────────────────────────
