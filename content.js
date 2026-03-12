@@ -104,12 +104,10 @@
 
   function togglePanel() {
     panelOpen = !panelOpen;
-    const panel = document.getElementById('pqrz-panel');
-    panel.classList.toggle('pqrz-panel--open', panelOpen);
+    document.getElementById('pqrz-panel').classList.toggle('pqrz-panel--open', panelOpen);
     if (panelOpen) {
-      panel.addEventListener('transitionend', () => {
-        document.getElementById('pqrz-filter')?.focus();
-      }, { once: true });
+      document.getElementById('pqrz-launcher').blur();
+      setTimeout(() => document.getElementById('pqrz-filter')?.focus(), 250);
     }
   }
 
