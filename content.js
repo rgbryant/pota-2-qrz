@@ -441,25 +441,11 @@
   }
 
   // ─── POTA Respot ─────────────────────────────────────────────────────────────
-  // Extracts the Cognito access token from pota.app's localStorage so we can
-  // respot the activator on POTA after logging to QRZ.
-  function getPotaToken() {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key && key.includes('CognitoIdentityServiceProvider') && key.endsWith('.accessToken')) {
-        return localStorage.getItem(key);
-      }
-    }
-    return null;
-  }
-
   function respotOnPota({ activator, spotter, freqMHz, reference, mode }) {
-    const token = getPotaToken();
-    if (!token) { showToast('QRZ logged ✓ — POTA respot skipped (not logged in to pota.app)', 'warn', 7500); return; }
     const frequency = String(Math.round(parseFloat(freqMHz) * 1000));
     const comments  = 'Logged via POTA→QRZ Logger';
     chrome.runtime.sendMessage(
-      { type: 'POTA_RESPOT', payload: { token, activator, spotter, frequency, reference, mode, comments } },
+      { type: 'POTA_RESPOT', payload: { activator, spotter, frequency, reference, mode, comments } },
       (response) => {
         if (response?.ok) {
           showToast('Respotted on POTA ✓', 'info');

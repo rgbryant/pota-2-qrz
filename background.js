@@ -56,12 +56,11 @@ async function handleQrzLog({ apiKey, adif }) {
   return { logid: result.LOGID || result.logid || 'OK' };
 }
 
-async function handlePotaRespot({ token, activator, spotter, frequency, reference, mode, comments }) {
+async function handlePotaRespot({ activator, spotter, frequency, reference, mode, comments }) {
   const resp = await fetch('https://api.pota.app/spot/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
       'Origin': 'https://pota.app',
       'Referer': 'https://pota.app/',
     },
