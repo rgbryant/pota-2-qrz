@@ -320,6 +320,9 @@
               <input id="pqrz-f-grid" type="text"
                 value="${esc(spotData.grid || '')}"
                 placeholder="" maxlength="8"/></div>
+            <div class="pqrz-form-field pqrz-form-field--full"><label>POTA Respot Comment</label>
+              <input id="pqrz-f-pota-comment" type="text"
+                value="" placeholder="e.g. 59" maxlength="120"/></div>
           </div>
           <div class="pqrz-dialog-status" id="pqrz-modal-status" aria-live="polite"></div>
         </div>
@@ -423,7 +426,8 @@
           statusEl.className = 'pqrz-dialog-status pqrz-dialog-status--success';
           submitBtn.textContent = '\u2713 Done';
           respotOnPota({ activator: qso.call, spotter: qso.station_callsign,
-                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode, comments: qso.rst_sent });
+                         freqMHz: qso.freq, reference: spotData.park, mode: qso.mode,
+                         comments: overlay.querySelector('#pqrz-f-pota-comment').value.trim() });
           setTimeout(close, 2500);
         } else {
           statusEl.innerHTML = `Error \u2014 Please check QRZ API key.`;
